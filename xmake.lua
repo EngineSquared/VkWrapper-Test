@@ -4,7 +4,7 @@ add_requires("raylib")
 set_project("VkWrapper-Test")
 set_languages("c++20")
 
-includes("lib/EngineSquared/xmake.lua")
+includes("ThirdParty/EngineSquared/xmake.lua")
 
 target("VkWrapper-Test")
     set_kind("binary")
