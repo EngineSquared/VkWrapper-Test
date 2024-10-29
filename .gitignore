@@ -30,3 +30,15 @@
 *.exe
 *.out
 *.app
+*.spv
+
+# xmake-related files
+.xmake/*
+.vs/*
+.vscode/*
+CMakeLists.txt
+Makefile
+vs*/*
+vsxmake*/*
+build/
+docs/

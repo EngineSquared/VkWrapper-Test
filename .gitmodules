@@ -1,0 +1,3 @@
+[submodule "ThirdParty/EngineSquared"]
+	path = ThirdParty/EngineSquared
+	url = git@github.com:EngineSquared/EngineSquared.git
