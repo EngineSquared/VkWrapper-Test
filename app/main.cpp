@@ -8,27 +8,25 @@
 #include "VkWrapper.hpp"
 #include "Window.hpp"
 
-#define GLM_FORCE_RADIANS
-#define GLM_FORCE_DEPTH_ZERO_TO_ONE
-#include <glm/mat4x4.hpp>
-#include <glm/vec4.hpp>
-
 #include <iostream>
 
 int main()
 {
-    ES::Plugin::Window::Resource::Window window(800, 600, "My Engine");
+    ES::Plugin::Window::Resource::Window window(800, 600, "VkWrapper Test");
     ES::Plugin::VkWrapper vkWrapper;
+    ES::Plugin::VkWrapper::CreateInfo createInfo = {
+        .window = window.GetGLFWWindow(),
+        .width = 800,
+        .height = 600,
+        .applicationName = "VkWrapper Test",
+        .shaders = {{SHADER_DIR "vert.spv", "main"}, {SHADER_DIR "frag.spv", "main"}}
+    };
 
-    vkWrapper.create(window.GetGLFWWindow(), 800, 600, "My Engine");
-    window.SetFramebufferSizeCallback((void*)&vkWrapper, ES::Plugin::VkWrapper::ResizeCallback);
+    vkWrapper.Create(createInfo);
+    window.SetFramebufferSizeCallback((void *) &vkWrapper, ES::Plugin::VkWrapper::ResizeCallback);
 
     vkWrapper.PrintConfig();
     vkWrapper.PrintAvailableExtensions();
-
-    glm::mat4 matrix;
-    glm::vec4 vec;
-    auto test = matrix * vec;
 
     try
     {
@@ -36,11 +34,11 @@ int main()
         {
             glfwPollEvents();
 
-            if (vkWrapper.drawFrame() == ES::Plugin::Wrapper::Result::Failure)
+            if (vkWrapper.DrawFrame() == ES::Plugin::Wrapper::Result::Failure)
                 vkWrapper.Resize(window.GetGLFWWindow());
         }
 
-        vkWrapper.destroy();
+        vkWrapper.Destroy();
     }
     catch (const std::exception &e)
     {
