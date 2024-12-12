@@ -1,4 +1,4 @@
-add_requires("entt", "vulkan-headers", "vulkansdk", "vulkan-hpp", "glfw", "glm", "gtest", "raylib")
+add_requires("entt", "vulkan-headers", "vulkansdk", "vulkan-hpp", "glfw", "glm", "gtest", "raylib", "spdlog")
 add_requires("raylib")
 
 set_project("VkWrapper-Test")
@@ -13,7 +13,7 @@ target("VkWrapper-Test")
 
     add_deps("EngineSquared")
 
-    add_packages("entt", "vulkansdk", "glfw", "glm")
+    add_packages("entt", "vulkansdk", "glfw", "glm", "spdlog")
 
 if is_mode("debug") then
     add_defines("DEBUG")

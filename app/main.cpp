@@ -34,7 +34,7 @@ int main()
         {
             glfwPollEvents();
 
-            if (vkWrapper.DrawFrame() == ES::Plugin::Wrapper::Result::Failure)
+            if (vkWrapper.DrawFrame() == ES::Plugin::Wrapper::Result::NeedResize)
                 vkWrapper.Resize(window.GetGLFWWindow());
         }
 
