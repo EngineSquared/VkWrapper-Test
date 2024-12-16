@@ -8,8 +8,6 @@
 #include "VkWrapper.hpp"
 #include "Window.hpp"
 
-#include <iostream>
-
 int main()
 {
     ES::Plugin::Window::Resource::Window window(800, 600, "VkWrapper Test");

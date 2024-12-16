@@ -1,5 +1,4 @@
-add_requires("entt", "vulkan-headers", "vulkansdk", "vulkan-hpp", "glfw", "glm", "gtest", "raylib", "spdlog")
-add_requires("raylib")
+add_requires("entt", "vulkan-headers", "vulkansdk", "vulkan-hpp", "glfw", "glm", "gtest", "tinyobjloader", "spdlog")
 
 set_project("VkWrapper-Test")
 set_languages("c++20")
@@ -13,7 +12,7 @@ target("VkWrapper-Test")
 
     add_deps("EngineSquared")
 
-    add_packages("entt", "vulkansdk", "glfw", "glm", "spdlog")
+    add_packages("entt", "vulkansdk", "glfw", "glm", "tinyobjloader", "spdlog")
 
 if is_mode("debug") then
     add_defines("DEBUG")
@@ -34,14 +33,16 @@ end
 target("shader")
     set_kind("phony")
     add_deps("EngineSquared")
+
     on_build(function(target)
         import("core.base.option")
         import("core.project.config")
         import("core.base.task")
+
         local buildir = path.join("$(buildir)", "$(plat)", "$(arch)", "$(mode)")
         os.mkdir(path.join(buildir, "shaders"))
 
-        local shader_files = os.files("shaders/*.*")
+        local shader_files = os.files("$(scriptdir)" .. "/shaders/*.*")
 
         for _, shader_file in ipairs(shader_files) do
             local extension = string.sub(path.extension(shader_file), 2)
