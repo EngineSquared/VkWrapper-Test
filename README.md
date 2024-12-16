@@ -11,7 +11,7 @@ This is a test project for the VkWrapper library.
 
 ## Example output
 
-![Example Output](images/capture_app.png)
+![Example Output](images/capture_app_release.png)
 
 ```sh
 $ VkWrapper-Test>xmake run VkWrapper-Test
