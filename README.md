@@ -11,7 +11,7 @@ This is a test project for the VkWrapper library.
 
 ## Example output
 
-![Example Output](images/capture_app_release.png)
+![Example Output](images/capture_app_release_02.png)
 
 ```sh
 $ VkWrapper-Test>xmake run VkWrapper-Test
@@ -37,4 +37,36 @@ VKWRAPPER_DEBUG=Release
     VK_NV_external_memory_capabilities
     VK_KHR_portability_enumeration
     VK_LUNARG_direct_driver_loading
+```
+
+or on linux:
+
+```sh
+[2025-02-17 02:47:13.645] [info] VkWrapper config:
+VKWRAPPER_VERSION=0.0.0.0
+VKWRAPPER_SYSTEM=Linux
+VKWRAPPER_COMPILER=GCC
+VKWRAPPER_DEBUG=Release
+
+[2025-02-17 02:47:13.652] [info] available extensions (20):
+        VK_KHR_device_group_creation
+        VK_KHR_display
+        VK_KHR_external_fence_capabilities
+        VK_KHR_external_memory_capabilities
+        VK_KHR_external_semaphore_capabilities
+        VK_KHR_get_display_properties2
+        VK_KHR_get_physical_device_properties2
+        VK_KHR_get_surface_capabilities2
+        VK_KHR_surface
+        VK_KHR_surface_protected_capabilities
+        VK_KHR_wayland_surface
+        VK_KHR_xcb_surface
+        VK_KHR_xlib_surface
+        VK_EXT_acquire_drm_display
+        VK_EXT_acquire_xlib_display
+        VK_EXT_debug_report
+        VK_EXT_debug_utils
+        VK_EXT_direct_mode_display
+        VK_EXT_display_surface_counter
+        VK_EXT_swapchain_colorspace
 ```
