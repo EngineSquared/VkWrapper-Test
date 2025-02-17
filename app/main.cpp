@@ -23,8 +23,8 @@ int main()
     vkWrapper.Create(createInfo);
     window.SetFramebufferSizeCallback((void *) &vkWrapper, ES::Plugin::VkWrapper::ResizeCallback);
 
-    vkWrapper.PrintConfig();
-    vkWrapper.PrintAvailableExtensions();
+    ES::Plugin::VkWrapper::PrintConfig();
+    ES::Plugin::VkWrapper::PrintAvailableExtensions();
 
     try
     {
