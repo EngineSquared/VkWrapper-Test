@@ -8,23 +8,26 @@
 #include "VkWrapper.hpp"
 #include "Window.hpp"
 
+using namespace ES::Plugin;
+
 int main()
 {
-    ES::Plugin::Window::Resource::Window window(800, 600, "VkWrapper Test");
-    ES::Plugin::VkWrapper vkWrapper;
-    ES::Plugin::VkWrapper::CreateInfo createInfo = {
-        .window = window.GetGLFWWindow(),
-        .width = 800,
-        .height = 600,
-        .applicationName = "VkWrapper Test",
-        .shaders = {{SHADER_DIR "vert.spv", "main"}, {SHADER_DIR "frag.spv", "main"}}
-    };
+    Window::Resource::Window window(800, 600, "VkWrapper Test");
+    VkWrapper vkWrapper;
 
-    vkWrapper.Create(createInfo);
-    window.SetFramebufferSizeCallback((void *) &vkWrapper, ES::Plugin::VkWrapper::ResizeCallback);
+    vkWrapper.CreateInstance(window.GetGLFWWindow(), "VkWrapper Test", 800, 600);
 
-    ES::Plugin::VkWrapper::PrintConfig();
-    ES::Plugin::VkWrapper::PrintAvailableExtensions();
+    vkWrapper.AddTexture("/home/laplace/VkWrapper-Test/assets/images/texture.png");
+
+    vkWrapper.AddShader(SHADER_DIR "vert.spv", "main", VkWrapper::ShaderType::VERTEX);
+    vkWrapper.AddShader(SHADER_DIR "frag.spv", "main", VkWrapper::ShaderType::FRAGMENT);
+
+    vkWrapper.CreatePipeline();
+
+    window.SetFramebufferSizeCallback((void *) &vkWrapper, VkWrapper::ResizeCallback);
+
+    VkWrapper::PrintConfig();
+    VkWrapper::PrintAvailableExtensions();
 
     try
     {
@@ -32,7 +35,7 @@ int main()
         {
             glfwPollEvents();
 
-            if (vkWrapper.DrawFrame() == ES::Plugin::Wrapper::Result::NeedResize)
+            if (vkWrapper.DrawFrame() == Wrapper::Result::NeedResize)
                 vkWrapper.Resize(window.GetGLFWWindow());
         }
 
