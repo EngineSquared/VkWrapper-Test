@@ -1,4 +1,4 @@
-add_requires("entt", "vulkan-headers", "vulkansdk", "vulkan-hpp", "glfw", "glm", "gtest", "tinyobjloader", "spdlog")
+add_requires("entt", "vulkan-headers", "vulkansdk", "vulkan-hpp", "glfw", "glm", "gtest", "tinyobjloader", "spdlog", "stb")
 
 set_project("VkWrapper-Test")
 set_languages("c++20")
@@ -12,7 +12,7 @@ target("VkWrapper-Test")
 
     add_deps("EngineSquared")
 
-    add_packages("entt", "vulkansdk", "glfw", "glm", "tinyobjloader", "spdlog")
+    add_packages("entt", "vulkansdk", "glfw", "glm", "tinyobjloader", "spdlog", "stb")
 
 if is_mode("debug") then
     add_defines("DEBUG")
