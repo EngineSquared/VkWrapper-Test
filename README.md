@@ -6,8 +6,9 @@ This is a test project for the VkWrapper library.
 
 1. Clone the repository
 2. `git submodule update --init --recursive`
-3. `xmake build -y`
-4. `xmake run VkWrapper-Test`
+3. `xmake config --mode=release` or `xmake config --mode=debug`
+4. `xmake build -y`
+5. `xmake run VkWrapper-Test`
 
 ## Example output
 
