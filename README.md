@@ -12,7 +12,7 @@ This is a test project for the VkWrapper library.
 
 ## Example output
 
-![Example Output](images/capture_app_release_02.png)
+![Example Output](images/capture_app_release_03.png)
 
 ```sh
 $ VkWrapper-Test>xmake run VkWrapper-Test
@@ -43,13 +43,13 @@ VKWRAPPER_DEBUG=Release
 or on linux:
 
 ```sh
-[2025-02-17 02:47:13.645] [info] VkWrapper config:
+[2025-03-11 11:39:17.408] [info] VkWrapper config:
 VKWRAPPER_VERSION=0.0.0.0
 VKWRAPPER_SYSTEM=Linux
 VKWRAPPER_COMPILER=GCC
 VKWRAPPER_DEBUG=Release
 
-[2025-02-17 02:47:13.652] [info] available extensions (20):
+[2025-03-11 11:39:17.410] [info] available extensions (20):
         VK_KHR_device_group_creation
         VK_KHR_display
         VK_KHR_external_fence_capabilities

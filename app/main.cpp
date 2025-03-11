@@ -5,54 +5,36 @@
 ** main
 */
 
-#include "VkWrapper.hpp"
-#include "Window.hpp"
+#include "Vk-Wrapper.hpp"
+#include "WindowSystem.hpp"
 
 using namespace ES::Plugin;
 
-#define ASSETS_DIR "~/VkWrapper-Test/assets/"
-
 int main()
 {
-    Window::Resource::Window window(800, 600, "VkWrapper Test");
-    VkWrapper vkWrapper;
+    ES::Engine::Core core;
 
-    vkWrapper.CreateInstance(window.GetGLFWWindow(), "VkWrapper Test", 800, 600);
+    core.RegisterSystem<ES::Engine::Scheduler::Startup>(Window::System::CreateWindow);
+    core.RegisterSystem<ES::Engine::Scheduler::Startup>(Window::System::EnableVSync);
 
-    uint32_t textureId;
-    vkWrapper.AddTexture(ASSETS_DIR "images/texture.png", textureId);
+    core.RegisterSystem<ES::Engine::Scheduler::Startup>(Wrapper::System::InitVkWrapper);
+    core.RegisterSystem<ES::Engine::Scheduler::Startup>(Wrapper::System::AddTextureAndModel);
+    core.RegisterSystem<ES::Engine::Scheduler::Startup>(Wrapper::System::AddShaders);
+    core.RegisterSystem<ES::Engine::Scheduler::Startup>(Wrapper::System::CreatePipeline);
+    core.RegisterSystem<ES::Engine::Scheduler::Startup>(Wrapper::System::ChangeClearColor);
+    core.RegisterSystem<ES::Engine::Scheduler::Startup>(Wrapper::System::DisplayConfigs);
 
-    uint32_t modelId;
-    vkWrapper.AddModel(ASSETS_DIR "models/plan.obj", modelId);
+    core.RunSystems();
 
-    vkWrapper.BindTexture(textureId, modelId);
+    core.RegisterSystem<ES::Engine::Scheduler::Update>(Window::System::PollEvents);
+    core.RegisterSystem<ES::Engine::Scheduler::Update>(Window::System::UpdateKey);
+    core.RegisterSystem<ES::Engine::Scheduler::Update>(Wrapper::System::DrawFrame);
 
-    vkWrapper.AddShader(SHADER_DIR "vert.spv", "main", VkWrapper::ShaderType::VERTEX);
-    vkWrapper.AddShader(SHADER_DIR "frag.spv", "main", VkWrapper::ShaderType::FRAGMENT);
-
-    vkWrapper.CreatePipeline();
-
-    window.SetFramebufferSizeCallback((void *) &vkWrapper, VkWrapper::ResizeCallback);
-
-    VkWrapper::PrintConfig();
-    VkWrapper::PrintAvailableExtensions();
-
-    try
-    {
-        while (!window.ShouldClose())
-        {
-            glfwPollEvents();
-
-            if (vkWrapper.DrawFrame() == Wrapper::Result::NeedResize)
-                vkWrapper.Resize(window.GetGLFWWindow());
-        }
-
-        vkWrapper.Destroy();
+    while (!core.GetResource<ES::Plugin::Window::Resource::Window>().ShouldClose()) {
+        core.RunSystems();
     }
-    catch (const std::exception &e)
-    {
-        std::cerr << e.what() << std::endl;
-        return EXIT_FAILURE;
-    }
-    return EXIT_SUCCESS;
+
+    core.GetResource<ES::Plugin::VkWrapper>().Destroy();
+
+    return 0;
 }
